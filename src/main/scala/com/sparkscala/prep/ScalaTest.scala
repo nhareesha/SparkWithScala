@@ -7,8 +7,10 @@ object ScalaTest {
     // Size of map elements
     println(mapEx.size)
     // Iterate over map
-    mapEx.foreach(x  => println(x._1 +"="+x._2))
-    mapEx.foreach{case(k,v) => println(k + " " + v)}
+ //   mapEx.foreach(x  => println(x._1 +"="+x._2))
+  //  mapEx.foreach{case(k,v) => println(k + " " + v)}
+
+    mapEx.toSeq.foreach(x => println(x))
 
   }
 }

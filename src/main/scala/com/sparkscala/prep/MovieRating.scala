@@ -24,7 +24,7 @@ object MovieRating {
     // map function on RDD return another RDD
     val ratingRdd = linesRdd.map((x : String) => x.split("\t")(2))
 
-    // ratingRdd.sample()
+     ratingRdd.sample(false,0.1).take(10).foreach(println)
 
     // take is an action and it returns and Array.foreach is on Array
     ratingRdd.take(10).foreach(println)
@@ -39,6 +39,13 @@ object MovieRating {
     val sortedMap = ratingMap.toSeq.sortBy(_._2)
 
     sortedMap.foreach(println)
+
+
+    // Use reduceByKey instead of countbyValue
+
+    val parRdd = ratingRdd.map(x => (x,1L)).reduceByKey((x,y) => x+y)   // PairRDDFunction
+
+    parRdd.foreach(x => println(x._1 + "->"+x._2))
   }
 
 }
