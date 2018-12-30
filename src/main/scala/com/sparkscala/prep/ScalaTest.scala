@@ -12,5 +12,11 @@ object ScalaTest {
 
     mapEx.toSeq.foreach(x => println(x))
 
+    // creating a tuple
+
+    val tuple1 = (1,2)
+
+    println(tuple1)
+
   }
 }
