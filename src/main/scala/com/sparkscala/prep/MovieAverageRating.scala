@@ -9,7 +9,7 @@ import org.apache.spark.SparkContext;
 /**
   * Scala Singleton object to create
   */
-object MovieRating {
+object MovieAverageRating {
 
   def main(arags:Array[String]):Unit={
 
