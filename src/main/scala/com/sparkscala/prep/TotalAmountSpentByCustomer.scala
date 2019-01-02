@@ -11,6 +11,6 @@ object TotalAmountSpentByCustomer {
     val  itemAmountRdd = ordersRdd.map(x =>(x.split(",")(0),x.split(",")(2).toFloat))
     val aggItemAmountRdd = itemAmountRdd.reduceByKey((v1,v2) => v1+v2)
     //SortBy total amount spent
-    aggItemAmountRdd.map(x => (x._2,x._1)).sortByKey().foreach(println)
+    aggItemAmountRdd.map(x => (x._2,x._1)).sortByKey().collect().foreach(println)
   }
 }

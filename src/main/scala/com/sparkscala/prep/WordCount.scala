@@ -40,14 +40,14 @@ object WordCount {
 
     // sortBy() returns an RDD.
     //    aggWordCount2.sortBy(x => x._2).foreach(x => println(x._1 +" occured : "+x._2+" times"))
-    aggWordCount2.map(x => (x._2,x._1)).sortByKey().foreach(x => println(x._1 + " times : " + x._2 + " is present in the book"))
+    aggWordCount2.map(x => (x._2,x._1)).sortByKey().collect().foreach(x => println(x._1 + " times : " + x._2 + " is present in the book"))
 
     /****** even better word count using stop list *******/
 
     val list = List("is","a","the","that","was","were","you","of","on","what","when","in","for")
     val aggWordCount3 = flatMapRdd2.filter(x => !list.contains(x)).map(x => x.toLowerCase()).map(x => (x,1)).reduceByKey((v1,v2) => v1+v2)
 
-    aggWordCount3.map(x => (x._2,x._1)).sortByKey().foreach(println)
+    aggWordCount3.map(x => (x._2,x._1)).sortByKey().collect().foreach(println)
   }
 
 }
