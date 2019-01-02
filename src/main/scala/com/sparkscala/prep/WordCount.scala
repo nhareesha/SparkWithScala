@@ -29,11 +29,11 @@ object WordCount {
 
     aggWordCount1.collect().sortBy(x => x._2).foreach(println)
 
-    /** *** Better Word Count :  Where punctuations are taken care of *******/
+    /***** Better Word Count :  Where punctuations are taken care of *******/
 
     println("Better Word Count")
-    var flatMapRdd2 = linesRdd.flatMap(line => line.split("\\W+"))
-    var aggWordCount2 = flatMapRdd2.map(x => x.toLowerCase()).map(x => (x, 1)).reduceByKey((v1, v2) => v1 + v2)
+    val flatMapRdd2 = linesRdd.flatMap(line => line.split("\\W+"))
+    val aggWordCount2 = flatMapRdd2.map(x => x.toLowerCase()).map(x => (x, 1)).reduceByKey((v1, v2) => v1 + v2)
 
     // Here values are collected to driver and sorted
     aggWordCount2.collect().sortBy(x => x._2).foreach(println)
@@ -42,7 +42,12 @@ object WordCount {
     //    aggWordCount2.sortBy(x => x._2).foreach(x => println(x._1 +" occured : "+x._2+" times"))
     aggWordCount2.map(x => (x._2,x._1)).sortByKey().foreach(x => println(x._1 + " times : " + x._2 + " is present in the book"))
 
+    /****** even better word count using stop list *******/
 
+    val list = List("is","a","the","that","was","were","you","of","on","what","when","in","for")
+    val aggWordCount3 = flatMapRdd2.filter(x => !list.contains(x)).map(x => x.toLowerCase()).map(x => (x,1)).reduceByKey((v1,v2) => v1+v2)
+
+    aggWordCount3.map(x => (x._2,x._1)).sortByKey().foreach(println)
   }
 
 }
