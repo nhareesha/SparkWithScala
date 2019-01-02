@@ -9,6 +9,8 @@ object TotalAmountSpentByCustomer {
     val ordersRdd = sc.textFile("../SparkScala/customer-orders.csv")
     ordersRdd.take(10).foreach(println)
     val  itemAmountRdd = ordersRdd.map(x =>(x.split(",")(0),x.split(",")(2).toFloat))
-    itemAmountRdd.reduceByKey((v1,v2) => v1+v2).foreach(println)
+    val aggItemAmountRdd = itemAmountRdd.reduceByKey((v1,v2) => v1+v2)
+    //SortBy total amount spent
+    aggItemAmountRdd.map(x => (x._2,x._1)).sortByKey().foreach(println)
   }
 }
