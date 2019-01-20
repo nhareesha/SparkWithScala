@@ -24,6 +24,9 @@ object SecondColumnSum {
       }
     }
 
+    println("ZipWithIndex")
+    rdd2.zipWithIndex().collect().toMap.foreach(println)
+
     val joinrdd = rdd1.join(rdd2)
 
 

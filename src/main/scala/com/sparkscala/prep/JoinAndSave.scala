@@ -36,8 +36,6 @@ object JoinAndSave{
     val rddByKey = groupedRdd.map{ case (k,v) => k -> sc.makeRDD(v.toSeq)}
     rddByKey.foreach {case (k,rdd) => rdd.saveAsTextFile("/output"+k)}
 
-
-
   }
 
 }
